@@ -3,6 +3,7 @@ package com.shelfwatch_cam
 import android.content.Intent
 import android.widget.Toast
 import com.facebook.react.bridge.*
+import com.facebook.react.modules.core.DeviceEventManagerModule
 
 class CameraModule(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
 
@@ -18,11 +19,16 @@ class CameraModule(reactContext: ReactApplicationContext): ReactContextBaseJavaM
 
   @ReactMethod
   fun openCamera(){
-    val intent = Intent(context,CameraActivity::class.java)
-    if(intent.resolveActivity(context.packageManager) != null){
-      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-      context.startActivity(intent)
-    }
+
+    context
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit("eventName", "params")
+
+    // val intent = Intent(context,CameraActivity::class.java)
+    // if(intent.resolveActivity(context.packageManager) != null){
+    //   intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    //   context.startActivity(intent)
+    // }
   }
 
 }

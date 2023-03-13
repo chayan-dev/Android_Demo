@@ -1,24 +1,24 @@
-import React from "react";
-import { View, Button, NativeModules, NativeEventEmitter } from "react-native";
+import React from 'react';
+import {View, Button, NativeModules, NativeEventEmitter} from 'react-native';
 class App extends React.Component {
   componentDidMount() {
     this._addListenersForNativeCamSDK();
   }
 
   componentWillUnmount() {
-    console.log("unmount")
+    console.log('unmount');
 
     this.eventCaptureListener?.remove();
   }
 
   _addListenersForNativeCamSDK = () => {
-    console.log(13)
-    const eventEmitter = new NativeEventEmitter(NativeModules.Bridge);
+    console.log(13);
+    const eventEmitter = new NativeEventEmitter();
     this.eventCaptureListener = eventEmitter.addListener(
-      "EventReminder",
-      (nativeData) => {
-        console.log({ nativeData });
-      }
+      'eventName',
+      nativeData => {
+        console.log({nativeData});
+      },
     );
   };
 
